@@ -1,0 +1,6 @@
+FROM nginx:stable-alpine
+
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# always store nginx-cache in a volume for improved performance
+VOLUME /nginx-cache/

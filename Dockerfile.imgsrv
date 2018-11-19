@@ -1,0 +1,12 @@
+FROM golang:1.11-stretch AS gobuild
+
+WORKDIR /go/src/go-image-server/
+
+COPY . ./
+RUN go get
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -a -tags netgo -ldflags '-w'
+RUN cp go-image-server /go/bin/go-image-server
+
+FROM scratch
+COPY --from=gobuild /go/bin/go-image-server .
+ENTRYPOINT ["/lib-dh-go-imgsrv"]

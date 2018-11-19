@@ -1,0 +1,16 @@
+version: '2'
+services:
+  imgsrv:
+    build:
+      context: ./
+      dockerfile: Dockerfile.imgsrv
+    volumes:
+      - /home/lk/tmp/pics_raw/:/pics/
+    environment:
+      - IMAGE_DIR=/pics/
+      - BIND=""
+      - MAX_AGE=30
+  pics:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
