@@ -12,7 +12,7 @@ var ImageDir string
 var MaxAge int
 var JpgQuality int
 
-func init() {
+func ReadConfig() {
 
 	var err error
 	Port, err = strconv.Atoi(os.Getenv("PORT"))

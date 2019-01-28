@@ -7,7 +7,17 @@ import (
 	"strconv"
 )
 
+// is set through linker by build.sh
+var buildVersion string
+var buildTime string
+
 func main() {
+	// log current program version
+	log.Printf("github.com/datahouse/go-image-server version: %s (build at: %s)", buildVersion, buildTime)
+
+	// read configuration and exit on error
+	ReadConfig()
+
 	// setup router
 	router := mux.NewRouter()
 
