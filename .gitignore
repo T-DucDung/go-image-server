@@ -1,5 +1,1 @@
-gin-bin
-lib-dh-go-imgsrv
-vendor/
-.stamp.*
-version
+go-image-server
