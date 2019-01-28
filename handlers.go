@@ -27,7 +27,7 @@ func writeImageHeaders(w http.ResponseWriter, contentType string, lastModified t
 }
 
 func handleHomeGet(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("This is the lib-dh-go image server"))
+	w.Write([]byte("This is the " + GetVersion()))
 }
 
 func handleRaw(w http.ResponseWriter, r *http.Request) {

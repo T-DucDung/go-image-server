@@ -1,18 +1,18 @@
 package main
 
 import (
+	"errors"
+	"github.com/disintegration/imaging"
 	"image"
 	"image/jpeg"
 	"image/png"
 	"io"
-	"errors"
 	"os"
-	"github.com/disintegration/imaging"
 )
 
 func ImageRead(filePath, ending string, width, height int) (img image.Image, err error) {
 
-	switch (ending) {
+	switch ending {
 	case "png":
 		return ImageReadPng(filePath, width, height)
 	case "jpg":

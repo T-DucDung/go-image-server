@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-	"time"
 	"os"
+	"time"
 )
 
 func SetLastModified(w http.ResponseWriter, modtime time.Time) {

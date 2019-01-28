@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -11,9 +12,16 @@ import (
 var buildVersion string
 var buildTime string
 
+func GetVersion() string {
+	return fmt.Sprintf(
+		"github.com/datahouse/go-image-server version: %s (build at: %s)",
+		buildVersion, buildTime,
+	)
+}
+
 func main() {
 	// log current program version
-	log.Printf("github.com/datahouse/go-image-server version: %s (build at: %s)", buildVersion, buildTime)
+	log.Printf(GetVersion())
 
 	// read configuration and exit on error
 	ReadConfig()
