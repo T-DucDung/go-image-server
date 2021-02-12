@@ -5,17 +5,17 @@ as png or jpg images at the resolution requested by the client.
 It can also serve raw (unmodified) versions of png, jpg, svg and pdf files.
 
 ## URL Schema and source image logic 
-* /<height>p/path/to/image.{jpg,png}
+* /`height`p/path/to/image.{jpg,png}
   * returns 200 and a scaled version of the image to <height> pixel height if {$IMAGE_DIR}path/to/image.png is readable
   * returns 200 and a scaled version of the image to <height> pixel height if {$IMAGE_DIR}path/to/image.jpg is readable
   * returns 404 otherwise 
 
-* /<width>w/path/to/image.{jpg,png}
+* /`width`w/path/to/image.{jpg,png}
   * returns 200 and a scaled version of the image to <width> pixel width if {$IMAGE_DIR}path/to/image.png is readable
   * returns 200 and a scaled version of the image to <width> pixel width if {$IMAGE_DIR}path/to/image.jpg is readable
   * returns 404 otherwise 
   
-* /raw/path/to/image.<ext> (where <ext> can be one of png, jpg, svg, pdf)
+* /raw/path/to/image.`ext` (where `ext` can be one of png, jpg, svg, pdf)
   * returns 200 and the unmodified file if {$IMAGE_DIR}path/to/image.<ext> is readable
   * returns 404 otherwise
 
