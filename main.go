@@ -14,7 +14,7 @@ var buildTime string
 
 func GetVersion() string {
 	return fmt.Sprintf(
-		"github.com/datahouse/go-image-server version: %s (build at: %s)",
+		"github.com/koestler/go-image-server version: %s (build at: %s)",
 		buildVersion, buildTime,
 	)
 }

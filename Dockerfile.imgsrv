@@ -1,12 +1,13 @@
-FROM golang:1.11-stretch AS gobuild
+FROM golang:1.15-buster AS gobuild
 
-WORKDIR /go/src/go-image-server/
+COPY .  /go/src/github.com/koestler/go-image-server/
+WORKDIR /go/src/github.com/koestler/go-image-server/
 
-COPY . ./
-RUN go get
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -a -tags netgo -ldflags '-w'
-RUN cp go-image-server /go/bin/go-image-server
+RUN go get -v
+RUN ./build.sh
+RUN mv go-image-server /go/bin/go-image-server
 
 FROM scratch
-COPY --from=gobuild /go/bin/go-image-server .
-ENTRYPOINT ["/lib-dh-go-imgsrv"]
+EXPOSE 80/tcp
+COPY --from=gobuild /go/bin/go-image-server /go-image-server
+ENTRYPOINT ["/go-image-server"]
