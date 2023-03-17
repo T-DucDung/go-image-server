@@ -4,6 +4,11 @@ This server can read pictures in png (first priority) and jpg (second priority) 
 as png or jpg images at the resolution requested by the client.
 It can also serve raw (unmodified) versions of png, jpg, svg and pdf files.
 
+# New: add api to upload img
+
+i just change conf and add some api to make this server can store img from api, i just test local so if you want use docker
+you need check file config.go
+
 ## URL Schema and source image logic 
 * /`height`p/path/to/image.{jpg,png}
   * returns 200 and a scaled version of the image to <height> pixel height if {$IMAGE_DIR}path/to/image.png is readable
@@ -19,19 +24,20 @@ It can also serve raw (unmodified) versions of png, jpg, svg and pdf files.
   * returns 200 and the unmodified file if {$IMAGE_DIR}path/to/image.<ext> is readable
   * returns 404 otherwise
 
+* / 
+  * simple html upload file to server
+
 ## Configuration
 Configuration is done exclusively using environment variables. The following variables are supported:
 * **PORT**
   * port to listen on
-  * defaults to 80
+  * defaults to 8089
   * gin overwrites this env variable automatically
 * **BIND**
   * addresses to bind to
   * defaults to 127.0.0.1
 * **IMAGE_DIR**
-  * where to look for the input images
-  * use an absolute path or a path relative to `pwd` when you execute the server.
-  * Use a / at the end
+  * go to config.go u can find config host port and where u can find img
 * **MAX_AGE**
   * Cache-Control-Header: controls how many seconds the output is cached by reverse http proxies
   * (defaults to 0 -> no cache)
@@ -72,9 +78,8 @@ For development on this server, you might want to use gin, which automatically r
 on each request if the source has changed.
 
 ```
-go get github.com/codegangsta/gin
-export IMAGE_DIR=/home/lk/tmp/pics_raw/
-gin
+go get
+go build
 ```
 
 To build the docker images use:

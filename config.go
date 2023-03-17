@@ -17,7 +17,7 @@ func ReadConfig() {
 	var err error
 	Port, err = strconv.Atoi(os.Getenv("PORT"))
 	if err != nil {
-		Port = 80
+		Port = 8089
 	}
 
 	Bind, bindIsset := os.LookupEnv("BIND")
@@ -26,7 +26,8 @@ func ReadConfig() {
 		Bind = "127.0.0.1"
 	}
 
-	ImageDir = os.Getenv("IMAGE_DIR")
+	// ImageDir = os.Getenv("IMAGE_DIR")
+	ImageDir = "/home/ducdung/go/src/go-image-server/img/"
 	if _, err := os.Stat(ImageDir); err != nil {
 		log.Fatalf("IMAGE_DIR=%v does not exist", ImageDir)
 		os.Exit(1)

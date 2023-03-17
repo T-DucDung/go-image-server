@@ -3,13 +3,14 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/gorilla/mux"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 var contentTypes = map[string]string{
@@ -24,10 +25,6 @@ func writeImageHeaders(w http.ResponseWriter, contentType string, lastModified t
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Cache-Control", fmt.Sprintf("public, max-age=%d", MaxAge))
 	SetLastModified(w, lastModified)
-}
-
-func handleHomeGet(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("This is the " + GetVersion()))
 }
 
 func handleRaw(w http.ResponseWriter, r *http.Request) {
