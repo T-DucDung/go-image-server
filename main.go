@@ -5,7 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
+
+	"github.com/gorilla/handlers"
 
 	"github.com/gorilla/mux"
 )
@@ -44,11 +47,16 @@ func main() {
 
 	router.HandleFunc("/upload", uploadFile).Methods("POST")
 
+	// Where ORIGIN_ALLOWED is like `scheme://dns[:port]`, or `*` (insecure)
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+
 	// add 404 handler
 	router.NotFoundHandler = Logger(handleNotFound, "notFound")
 
 	// start server
-	log.Fatal(router, http.ListenAndServe(Bind+":"+strconv.Itoa(Port), router))
+	log.Fatal(router, http.ListenAndServe(Bind+":"+strconv.Itoa(Port), handlers.CORS(originsOk, headersOk, methodsOk)(router)))
 }
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {
